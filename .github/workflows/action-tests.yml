@@ -8,9 +8,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: .generator
+      - run: |
+          ls -ld .generator
+          ls -l .generator/
       - name: Given
         working-directory: .generator
-        run: if [ -f README.md]; then rm README.md; fi
+        run: if [ -f README.md ]; then rm README.md; fi
       - name: Test with defaults
         uses: ./.generator
       - name: Assertions
