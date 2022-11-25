@@ -25,9 +25,19 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
       - name: Run the tests
-        shell: bash
-        run: |
-          bundle exec ruby test/*.rb
+        run: bundle exec ruby test/*.rb
+
+  cucumber-tests:
+    name: Cucumber tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Run the tests
+        run: bundle exec cucumber
