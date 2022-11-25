@@ -15,8 +15,8 @@ class GenerateTest < Minitest::Test
   end
 
   def test_displays_version
-      run_command_and_stop 'ruby generate.rb --version'
+    run_command_and_stop 'ruby generate.rb --version'
 
-      assert_equal('generate.rb version 0.1.0', last_command_started.output.chomp)
+    assert_equal('generate.rb version 0.1.0', last_command_started.output.chomp)
   end
 end

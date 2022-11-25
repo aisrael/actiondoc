@@ -51,17 +51,14 @@ class Generate
   end
 
   def run
-    case
-    when options[:version]
+    if options[:version]
       display_version
     else
       generate
     end
   end
 
-  def generate
-  end
-
+  def generate; end
 
   def display_version
     puts "#{__FILE__} version #{VERSION}"
