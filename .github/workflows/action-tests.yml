@@ -16,6 +16,9 @@ jobs:
         run: if [ -f README.md ]; then rm README.md; fi
       - name: Test with defaults
         uses: ./.generator
+      - run: |
+          ls -ld .generator
+          ls -l .generator/
       - name: Assertions
         working-directory: .generator
         run: |
