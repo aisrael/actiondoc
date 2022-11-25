@@ -3,6 +3,7 @@
 require 'action'
 require 'erb'
 require 'ostruct'
+require 'table_layouts'
 require 'yaml'
 
 TEMPLATES_DIR = File.expand_path('../templates', __dir__)
@@ -19,22 +20,28 @@ class Generator
   end
 
   def run
-    yaml = read_action_yml
-    inputs = yaml.fetch(:inputs, {}).map do |k, v|
-      { name: k.to_s }.merge(v)
-    end
-    warn inputs.inspect
-    action = Action.new(*(yaml.values_at(:name, :description) + [inputs]))
+    action = read_action_yml
     render_default_template(action)
   end
 
   def read_action_yml
-    YAML.safe_load(File.read('action.yml')).deep_symbolize_keys
+    yaml = YAML.safe_load(File.read('action.yml')).deep_symbolize_keys
+    inputs = yaml.fetch(:inputs, {}).map do |k, v|
+      { name: k.to_s }.merge(v)
+    end
+    Action.new(*(yaml.values_at(:name, :description) + [inputs]))
   end
 
   def render_default_template(action)
     template_filename = File.join(TEMPLATES_DIR, 'default.erb')
+    inputs_table = construct_inputs_table(action)
     puts ERB.new(File.read(template_filename), trim_mode: '-').result(binding)
+  end
+
+  def construct_inputs_table(action)
+    headers = Input.members.map(&:to_s).map(&:capitalize)
+    data = action.inputs.map(&:values)
+    TableLayouts::Nice.new(headers, data).layout
   end
 end
 

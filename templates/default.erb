@@ -6,9 +6,7 @@
 
 ## Inputs
 
-| Name | Description | Required | Default |
-|------|-------------|----------|---------|
-<% action.inputs.each do |input| -%>
-<%= "|" + input.values_at(:name, :description, :required, :default).map { |s| " #{s} " }.join("|") + "|" %>
+<% inputs_table.each do |row| -%>
+<%= "|" + row.join("|") + "|" %>
 <% end -%>
 <% end -%>

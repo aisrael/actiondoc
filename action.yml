@@ -1,0 +1,9 @@
+name: Generate GitHub Action documentation
+description: >-
+  Generates documentation from your GitHub Action's `action.yml`
+
+inputs:
+  path-to-action-yml:
+    description: >-
+      The path to the `action.yml` file to generate documentation for.
+    required: false
