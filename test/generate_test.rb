@@ -11,12 +11,11 @@ class GenerateTest < Minitest::Test
   include Aruba::Api
 
   def setup
-    setup_aruba
+    setup_aruba(false)
   end
 
   def test_displays_version
-      puts "in test_displays_version: #{Dir.pwd}"
-      run_command_and_stop 'pwd'
+      run_command_and_stop 'ruby generate.rb --version'
 
       assert_equal('generate.rb version 0.1.0', last_command_started.output.chomp)
   end

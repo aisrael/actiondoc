@@ -76,7 +76,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86_64-darwin-19
 
 DEPENDENCIES
   aruba (~> 2.1.0)
@@ -86,4 +85,4 @@ DEPENDENCIES
   rubocop-minitest (~> 0.23.2)
 
 BUNDLED WITH
-   2.3.26
+   2.1.4

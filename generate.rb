@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 ########################################
@@ -53,8 +54,14 @@ class Generate
     case
     when options[:version]
       display_version
+    else
+      generate
     end
   end
+
+  def generate
+  end
+
 
   def display_version
     puts "#{__FILE__} version #{VERSION}"
