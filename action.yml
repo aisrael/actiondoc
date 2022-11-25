@@ -7,3 +7,16 @@ inputs:
     description: >-
       The path to the `action.yml` file to generate documentation for.
     required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+    - shell: bash
+      run: |
+        ls -l generate.rb
+        ruby generate.rb > README.md
+        cat README.md

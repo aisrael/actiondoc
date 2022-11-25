@@ -1,0 +1,19 @@
+name: Action Tests
+on: push
+
+jobs:
+  test-with-defaults:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: generator
+      - name: Given
+        run: if [ -f README.md]; then rm README.md; fi
+      - name: Test with defaults
+        uses: ./generator
+      - name: Assertions
+        run: |
+          ls -l
+          cat README.md
+          [ -f README.md ] && diff README.md .github/workflows/README.md.expected
