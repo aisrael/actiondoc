@@ -30,4 +30,4 @@ jobs:
       - name: Run the tests
         shell: bash
         run: |
-          ruby test/*.rb
+          bundle exec ruby test/*.rb

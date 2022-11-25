@@ -20,7 +20,7 @@ class Generator
   def run
     yaml = read_action_yml
     inputs = yaml.fetch(:inputs, {}).map do |k, v|
-      v.merge({name: k.to_s})
+      v.merge({ name: k.to_s })
     end
     action = Action.new(*(yaml.values_at(:name, :description) + [inputs]))
     render_default_template(action)
