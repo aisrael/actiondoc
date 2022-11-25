@@ -6,6 +6,22 @@ Feature: Basic Usage
       ruby ../../generate.rb $@
       """
 
+  Scenario: Defaults
+    Given a file named "action.yml" with:
+      """
+      name: Generate GitHub Action documentation
+      description: >-
+        Generates documentation from your GitHub Action's `action.yml`
+      """
+    When I run `./generate`
+    Then the output should contain:
+      """
+      Generate GitHub Action documentation
+      ====
+
+      Generates documentation from your GitHub Action's `action.yml`
+      """
+
   Scenario: Version
     When I run `./generate --version`
     Then the output should contain:
