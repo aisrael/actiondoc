@@ -11,7 +11,8 @@
 
 require 'optparse'
 
-VERSION = File.read('VERSION').chomp
+BASE_FILENAME = File.basename(__FILE__)
+VERSION = File.read(File.expand_path('VERSION', __dir__)).chomp
 
 # The main logic
 class Generate
@@ -34,10 +35,13 @@ class Generate
 
     def build_optparser(options)
       OptionParser.new do |opts|
-        opts.banner = "Usage: #{__FILE__} [options]"
+        opts.banner = "Usage: #{BASE_FILENAME} [options]"
 
         opts.on('--version', 'Show the version') do
           options[:version] = true
+        end
+        opts.on('--help', 'Display this help text') do
+          puts opts
         end
       end
     end
@@ -45,11 +49,13 @@ class Generate
 
   attr_reader :args, :options
 
+  # Initialize an instance of this `Generate` class
   def initialize(args, options)
     @args = args
     @options = options
   end
 
+  # The 'main' entrypoint
   def run
     if options[:version]
       display_version
@@ -58,10 +64,12 @@ class Generate
     end
   end
 
+  # Generate the documentation
   def generate; end
 
+  # Print out the version (in the VERSION file)
   def display_version
-    puts "#{__FILE__} version #{VERSION}"
+    puts "#{BASE_FILENAME} version #{VERSION}"
   end
 end
 

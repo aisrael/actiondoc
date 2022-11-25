@@ -80,6 +80,7 @@ PLATFORMS
 DEPENDENCIES
   aruba (~> 2.1.0)
   contracts (= 0.16.1)
+  cucumber (~> 8.0.0)
   minitest (~> 5.16.3)
   rubocop (~> 1.39.0)
   rubocop-minitest (~> 0.23.2)
