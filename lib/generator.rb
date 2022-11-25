@@ -35,13 +35,33 @@ class Generator
   def render_default_template(action)
     template_filename = File.join(TEMPLATES_DIR, 'default.erb')
     inputs_table = construct_inputs_table(action)
-    puts ERB.new(File.read(template_filename), trim_mode: '-').result(binding)
+    template = ERB.new(File.read(template_filename), trim_mode: '-')
+    model = TemplateModel.new(action, inputs_table)
+    puts template.result(model.instance_eval { binding })
   end
 
   def construct_inputs_table(action)
     headers = Input.members.map(&:to_s).map(&:capitalize)
     data = action.inputs.map(&:values)
     TableLayouts::Nice.new(headers, data).layout
+  end
+end
+
+INPUTS_SECTION_ERB = <<~ERB
+
+  ## Inputs
+
+  <% inputs_table.each do |row| -%>
+  <%= "|" + row.join("|") + "|" %>
+  <% end -%>
+ERB
+
+# For ERB binding
+TemplateModel = Struct.new(:action, :inputs_table) do
+  def inputs_section
+    return if inputs_table.nil? || inputs_table.empty?
+
+    ERB.new(INPUTS_SECTION_ERB, trim_mode: '-').result(binding)
   end
 end
 

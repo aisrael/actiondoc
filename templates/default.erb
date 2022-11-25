@@ -2,11 +2,4 @@
 ====
 
 <%= action.description %>
-<% if action.inputs && !action.inputs.empty? -%>
-
-## Inputs
-
-<% inputs_table.each do |row| -%>
-<%= "|" + row.join("|") + "|" %>
-<% end -%>
-<% end -%>
+<%= inputs_section -%>
