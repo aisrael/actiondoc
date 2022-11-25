@@ -2,3 +2,13 @@
 ====
 
 <%= action.description %>
+<% if action.inputs && !action.inputs.empty? -%>
+
+## Inputs
+
+| Name | Description | Required | Default |
+|------|-------------|----------|---------|
+<% action.inputs.each do |input| -%>
+<%= "|" + input.values_at(:name, :description, :required, :default).map { |s| " #{s} " }.join("|") + "|" %>
+<% end -%>
+<% end -%>
