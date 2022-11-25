@@ -7,6 +7,10 @@ inputs:
     description: >-
       The path to the `action.yml` file to generate documentation for.
     required: false
+  working-directory:
+    description: >-
+      The directory to perform the action in, if not $GITHUB_WORKSPACE
+    required: false
 
 runs:
   using: composite
@@ -15,7 +19,9 @@ runs:
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
+        working-directory: ${{ inputs.working-directory || github.workspace }}
     - shell: bash
+      working-directory: ${{ inputs.working-directory || github.workspace }}
       run: |
         ls -l generate.rb
         ruby generate.rb > README.md
