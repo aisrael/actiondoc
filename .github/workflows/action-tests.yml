@@ -6,24 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: .generator
       - run: |
-          ls -ld .generator
-          ls -l .generator/
+          ls -l .
       - name: Given
-        working-directory: .generator
         run: if [ -f README.md ]; then rm README.md; fi
       - name: Test with defaults
-        uses: ./.generator
-        with:
-          working-directory: .generator
+        uses: ./.
       - run: |
-          ls -ld .generator
-          ls -l .generator/
+          ls -l .
       - name: Assertions
-        working-directory: .generator
         run: |
-          ls -l
           cat README.md
           [ -f README.md ] && diff README.md .github/workflows/README.md.expected
