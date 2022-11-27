@@ -27,7 +27,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Run the tests
-        run: bundle exec ruby test/*.rb
+        run: bundle exec rake test
 
   cucumber-tests:
     name: Cucumber tests
