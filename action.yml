@@ -1,8 +1,16 @@
-name: Generate GitHub Action documentation
+name: actiondoc
 description: >-
   Generates documentation from your GitHub Action's `action.yml`
 
 inputs:
+  template-filename:
+    description: >-
+      The path to the ERB template to use to generate the documentation.
+    required: false
+  output-filename:
+    description: >-
+      The filename to save the output to. If not specified, simply prints to standard output.
+    required: false
   path-to-action-yml:
     description: >-
       The path to the `action.yml` file to generate documentation for.
@@ -25,6 +33,16 @@ runs:
         working-directory: ${{ inputs.working-directory || github.workspace }}
     - shell: bash
       working-directory: ${{ inputs.working-directory || github.workspace }}
+      env:
+        TEMPLATE_FILENAME: ${{ inputs.template-filename }}
+        OUTPUT_FILENAME: ${{ inputs.output-filename }}
       run: |
-        ruby -Ilib bin/actiondoc > README.md
-        cat README.md
+        set -- ''
+        if [[ -n "${TEMPLATE_FILENAME}" ]]; then
+          set -- "$@" --template "${TEMPLATE_FILENAME}"
+        fi
+        if [[ -z "${OUTPUT_FILENAME}" ]]; then
+          ruby -Ilib bin/actiondoc "$@"
+        else
+          ruby -Ilib bin/actiondoc "$@" > "${OUTPUT_FILENAME}"
+        fi
