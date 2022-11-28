@@ -1,6 +1,8 @@
 actiondoc
 ====
 
+[![Tests](https://github.com/aisrael/actiondoc/actions/workflows/tests.yml/badge.svg)](https://github.com/aisrael/actiondoc/actions/workflows/tests.yml)
+
 Generates documentation from your GitHub Action's `action.yml`
 
 ## Inputs

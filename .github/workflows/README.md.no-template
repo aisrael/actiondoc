@@ -1,4 +1,4 @@
-Generate GitHub Action documentation
+actiondoc
 ====
 
 Generates documentation from your GitHub Action's `action.yml`
