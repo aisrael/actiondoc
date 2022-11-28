@@ -1,14 +1,18 @@
 actiondoc
 ====
 
+[![Tests](https://github.com/aisrael/actiondoc/actions/workflows/tests.yml/badge.svg)](https://github.com/aisrael/actiondoc/actions/workflows/tests.yml)
+
 Generates documentation from your GitHub Action's `action.yml`
 
 ## Inputs
 
-| Name               | Description                                                      | Required | Default |
-|--------------------|------------------------------------------------------------------|----------|---------|
-| path-to-action-yml | The path to the `action.yml` file to generate documentation for. | No       |         |
-| working-directory  | The directory to perform the action in, if not $GITHUB_WORKSPACE | No       |         |
+| Name               | Description                                                                             | Required | Default |
+|--------------------|-----------------------------------------------------------------------------------------|----------|---------|
+| template-filename  | The path to the ERB template to use to generate the documentation.                      | No       |         |
+| output-filename    | The filename to save the output to. If not specified, simply prints to standard output. | No       |         |
+| path-to-action-yml | The path to the `action.yml` file to generate documentation for.                        | No       |         |
+| working-directory  | The directory to perform the action in, if not $GITHUB_WORKSPACE                        | No       |         |
 
 See [Basic Usage](features/basic_usage.feature) for some basic usage.
 
