@@ -26,6 +26,5 @@ runs:
     - shell: bash
       working-directory: ${{ inputs.working-directory || github.workspace }}
       run: |
-        ls -l generate.rb
-        ruby generate.rb > README.md
+        ruby -Ilib bin/actiondoc > README.md
         cat README.md
