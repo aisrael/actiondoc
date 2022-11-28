@@ -1,0 +1,27 @@
+name: Rubocop and Tests
+on:
+  push:
+    paths:
+      - action.yml
+      - templates/**
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: if [ -f README.md ]; then rm README.md; fi
+      - name: Test with defaults
+        uses: ./.
+        with:
+          template-filename: templates/README.md.erb
+          output-filename: README.md
+      - run: |
+          cat README.md
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          add-paths: README.md
+          branch: update-readme
+          delete-branch: true
+          title: Update README.md

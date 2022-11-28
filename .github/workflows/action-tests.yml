@@ -12,9 +12,31 @@ jobs:
         run: if [ -f README.md ]; then rm README.md; fi
       - name: Test with defaults
         uses: ./.
+        with:
+          output-filename: README.md
       - run: |
           ls -l .
       - name: Assertions
         run: |
           cat README.md
-          [ -f README.md ] && diff README.md .github/workflows/README.md.expected
+          [ -f README.md ] && diff README.md .github/workflows/README.md.no-template
+
+  test-with-template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          ls -l .
+      - name: Given
+        run: if [ -f README.md ]; then rm README.md; fi
+      - name: Test with defaults
+        uses: ./.
+        with:
+          template-filename: templates/README.md.erb
+          output-filename: README.md
+      - run: |
+          ls -l .
+      - name: Assertions
+        run: |
+          cat README.md
+          [ -f README.md ] && diff README.md .github/workflows/README.md.with-template
