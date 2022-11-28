@@ -21,9 +21,12 @@ module TableLayouts
     def layout
       max_column_widths = find_max_column_widths
       padded_column_widths = max_column_widths.map { |w| w + 2 }
-      [pad_row(padded_column_widths, @headers), generate_separators(padded_column_widths)] + @data.map do |row|
+      padded_headers = pad_row(padded_column_widths, @headers)
+      separators = generate_separators(padded_column_widths)
+      padded_data = @data.map do |row|
         pad_row(padded_column_widths, row)
       end
+      [padded_headers, separators] + padded_data
     end
 
     def pad_row(padded_column_widths, row)

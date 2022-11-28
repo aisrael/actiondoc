@@ -1,11 +1,4 @@
 Feature: Basic Usage
-  Background:
-    Given an executable named "generate" with:
-      """
-      #!/bin/bash
-      ruby ../../generate.rb $@
-      """
-
   Scenario: Defaults
     Given a file named "action.yml" with:
       """
@@ -13,7 +6,7 @@ Feature: Basic Usage
       description: >-
         Generates documentation from your GitHub Action's `action.yml`
       """
-    When I run `./generate`
+    When I run `actiondoc`
     Then the output should contain:
       """
       Generate GitHub Action documentation
@@ -35,7 +28,7 @@ Feature: Basic Usage
             The path to the `action.yml` file to generate documentation for.
           required: false
       """
-    When I run `./generate`
+    When I run `actiondoc`
     Then the output should contain exactly:
       """
       Generate GitHub Action documentation
@@ -44,24 +37,24 @@ Feature: Basic Usage
       Generates documentation from your GitHub Action's `action.yml`
 
       ## Inputs
-      
+
       | Name               | Description                                                      | Required | Default |
       |--------------------|------------------------------------------------------------------|----------|---------|
-      | path-to-action-yml | The path to the `action.yml` file to generate documentation for. | false    |         |
+      | path-to-action-yml | The path to the `action.yml` file to generate documentation for. | No       |         |
       """
 
   Scenario: Version
-    When I run `./generate --version`
-    Then the output should contain:
+    When I run `actiondoc --version`
+    Then the output should contain exactly:
       """
-      generate.rb version 0.1.0
+      actiondoc v0.1.0
       """
 
   Scenario: Help
-    When I run `./generate --help`
+    When I run `actiondoc --help`
     Then the output should contain:
       """
-      Usage: generate.rb [options]
+      Usage: actiondoc [options]
               --version                    Show the version
               --help                       Display this help text
       """

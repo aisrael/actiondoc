@@ -27,7 +27,7 @@ class Generator
   def read_action_yml
     yaml = YAML.safe_load(File.read('action.yml')).deep_symbolize_keys
     inputs = yaml.fetch(:inputs, {}).map do |k, v|
-      { name: k.to_s }.merge(v)
+      Input.new(k, v[:description], v[:required] ? 'Required' : 'No', v[:default])
     end
     Action.new(*(yaml.values_at(:name, :description) + [inputs]))
   end
@@ -41,9 +41,7 @@ class Generator
   end
 
   def construct_inputs_table(action)
-    headers = Input.members.map(&:to_s).map(&:capitalize)
-    data = action.inputs.map(&:values)
-    TableLayouts::Nice.new(headers, data).layout
+    TableLayouts::Nice.new(Input.members_as_headers, action.inputs).layout
   end
 end
 
