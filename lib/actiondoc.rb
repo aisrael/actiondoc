@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+require 'actiondoc/generator'
 require 'actiondoc/version'
-require 'generator'
 require 'optparse'
 
-# The ActionDoc module
+# The ActionDoc CLI
 module ActionDoc
   class Error < StandardError; end
 
@@ -24,7 +24,7 @@ module ActionDoc
       if options[:version]
         display_version
       else
-        Generator.new(ARGV, options).run
+        ActionDoc::Generator.new(ARGV, options).run
       end
     end
 
