@@ -16,7 +16,7 @@ See [Basic Usage](features/basic_usage.feature) for some basic usage.
 
 Given an `action.yml` that contains:
 
-```
+```yaml
 name: actiondoc
   description: >-
     Generates documentation from your GitHub Action's `action.yml`
@@ -30,7 +30,7 @@ name: actiondoc
 
 Then when running `actiondoc` it should output
 
-```
+```markdown
 actiondoc
 ====
 
