@@ -22,7 +22,7 @@ module ActionDoc
 
     def run
       action = read_action_yml
-      template_filename = options[:template] ? options[:template] : File.join(TEMPLATES_DIR, 'default.erb')
+      template_filename = options[:template] || File.join(TEMPLATES_DIR, 'default.erb')
       render_template(template_filename, action)
     end
 
