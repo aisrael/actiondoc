@@ -38,11 +38,11 @@ runs:
         OUTPUT_FILENAME: ${{ inputs.output-filename }}
       run: |
         set -- ''
-        if [[ ! -z "${TEMPLATE_FILENAME}" ]]; then
-          set -- $@ --template "${TEMPLATE_FILENAME}"
+        if [[ -n "${TEMPLATE_FILENAME}" ]]; then
+          set -- "$@" --template "${TEMPLATE_FILENAME}"
         fi
-        if [[ -z "${OUTPUT_FILENAME" ]]; then
-          ruby -Ilib bin/actiondoc $@
+        if [[ -z "${OUTPUT_FILENAME}" ]]; then
+          ruby -Ilib bin/actiondoc "$@"
         else
-          ruby -Ilib bin/actiondoc $@ > "${OUTPUT_FILENAME}"
-        end
+          ruby -Ilib bin/actiondoc "$@" > "${OUTPUT_FILENAME}"
+        fi
