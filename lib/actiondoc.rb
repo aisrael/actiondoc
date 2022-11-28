@@ -41,7 +41,7 @@ module ActionDoc
       OptionParser.new do |opts|
         opts.banner = 'Usage: actiondoc [options]'
 
-        opts.on('--template=TEMPLATE_FILENAME', '-t=TEMPLATE_FILENAME') do |template_filename|
+        opts.on('--template=TEMPLATE_FILENAME', '-t=TEMPLATE_FILENAME', 'The template to use') do |template_filename|
           options[:template] = template_filename
         end
         opts.on('--version', 'Show the version') do

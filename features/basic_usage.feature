@@ -55,6 +55,7 @@ Feature: Basic Usage
     Then the output should contain:
       """
       Usage: actiondoc [options]
+          -t, --template=TEMPLATE_FILENAME The template to use
               --version                    Show the version
               --help                       Display this help text
       """
