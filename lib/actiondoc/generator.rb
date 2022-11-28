@@ -22,7 +22,8 @@ module ActionDoc
 
     def run
       action = read_action_yml
-      render_default_template(action)
+      template_filename = options[:template] ? options[:template] : File.join(TEMPLATES_DIR, 'default.erb')
+      render_template(template_filename, action)
     end
 
     def read_action_yml
@@ -33,8 +34,7 @@ module ActionDoc
       Action.new(*(yaml.values_at(:name, :description) + [inputs]))
     end
 
-    def render_default_template(action)
-      template_filename = File.join(TEMPLATES_DIR, 'default.erb')
+    def render_template(template_filename, action)
       inputs_table = construct_inputs_table(action)
       template = ERB.new(File.read(template_filename), trim_mode: '-')
       model = TemplateModel.new(action, inputs_table)

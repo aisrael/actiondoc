@@ -18,7 +18,7 @@ Feature: Basic Usage
   Scenario: Renders inputs as a table
     Given a file named "action.yml" with:
       """
-      name: Generate GitHub Action documentation
+      name: actiondoc
       description: >-
         Generates documentation from your GitHub Action's `action.yml`
 
@@ -31,7 +31,7 @@ Feature: Basic Usage
     When I run `actiondoc`
     Then the output should contain exactly:
       """
-      Generate GitHub Action documentation
+      actiondoc
       ====
 
       Generates documentation from your GitHub Action's `action.yml`

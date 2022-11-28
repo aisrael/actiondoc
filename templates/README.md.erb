@@ -1,14 +1,8 @@
-actiondoc
+<%= action.name %>
 ====
 
-Generates documentation from your GitHub Action's `action.yml`
-
-## Inputs
-
-| Name               | Description                                                      | Required | Default |
-|--------------------|------------------------------------------------------------------|----------|---------|
-| path-to-action-yml | The path to the `action.yml` file to generate documentation for. | No       |         |
-| working-directory  | The directory to perform the action in, if not $GITHUB_WORKSPACE | No       |         |
+<%= action.description %>
+<%= inputs_section -%>
 
 See [Basic Usage](features/basic_usage.feature) for some basic usage.
 
