@@ -2,6 +2,8 @@
 
 require_relative 'lib/actiondoc/version'
 
+DOCKERIGNORE_GLOBS = File.readlines('.dockerignore').map(&:chomp)
+
 Gem::Specification.new do |spec|
   spec.name          = 'actiondoc'
   spec.version       = ActionDoc::VERSION
@@ -24,10 +26,16 @@ Gem::Specification.new do |spec|
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+    `git ls-files -z`.split("\x0").reject do |f|
+      would_be_ignored_by_docker = DOCKERIGNORE_GLOBS.any? do |glob|
+        File.fnmatch(glob, f) || (glob.end_with?('/') && f.start_with?(glob))
+      end
+      f.match(%r{^(test|spec|features)/}) || would_be_ignored_by_docker
+    end
   end
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  $stderr.puts "spec.executables: #{spec.executables}"
   spec.require_paths = ['lib']
   spec.metadata['rubygems_mfa_required'] = 'true'
 
