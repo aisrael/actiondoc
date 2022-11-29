@@ -9,4 +9,9 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test/**/*_test.rb']
 end
 
+desc 'Build Docker image'
+task docker_build: [:build] do |t|
+  `docker build -t actiondoc-#{ActionDoc::VERSION} .`
+end
+
 task default: :test

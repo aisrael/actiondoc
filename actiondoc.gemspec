@@ -27,15 +27,13 @@ Gem::Specification.new do |spec|
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject do |f|
-      would_be_ignored_by_docker = DOCKERIGNORE_GLOBS.any? do |glob|
+      f.match(%r{^(test|spec|features)/}) || DOCKERIGNORE_GLOBS.any? do |glob|
         File.fnmatch(glob, f) || (glob.end_with?('/') && f.start_with?(glob))
       end
-      f.match(%r{^(test|spec|features)/}) || would_be_ignored_by_docker
     end
   end
   spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  $stderr.puts "spec.executables: #{spec.executables}"
+  spec.executables   = ['actiondoc']
   spec.require_paths = ['lib']
   spec.metadata['rubygems_mfa_required'] = 'true'
 
