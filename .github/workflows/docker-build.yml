@@ -6,7 +6,6 @@ on:
     paths:
       - "!.github/workflows/**"
       - .github/workflows/docker-build.yml
-      - "actiondoc/**"
       - "lib/**"
       - "exe/**"
       - actiondoc.gemspec
