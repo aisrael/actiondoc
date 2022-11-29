@@ -1,5 +1,11 @@
 name: Rubocop and Tests
-on: push
+on:
+  push:
+    paths-ignore:
+      - README.md
+  pull_request:
+    branches:
+      - main
 
 jobs:
   rubocop:
