@@ -2,7 +2,9 @@ name: Build Docker Image
 on:
   push:
     branches:
-      - main
+      - **
+    tags:
+      - **
     paths:
       - "!.github/workflows/**"
       - .github/workflows/docker-build.yml
@@ -36,11 +38,34 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           rake build
-      - name: Build and push
+      - name: Build and push tag or branch
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+      - name: Build and push latest on tag only
+        if: github.ref_type == 'tag'
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:0.1.0
+
+  docker-test-with-template:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    container: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Given
+        run: if [ -f README.md ]; then rm README.md; fi
+      - name: Test with defaults
+        run: |
+          actiondoc --template templates/README.md.erb > README.md
+      - name: Assertions
+        run: |
+          cat README.md
+          [ -f README.md ] && diff README.md .github/workflows/README.md.with-template
