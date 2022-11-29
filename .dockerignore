@@ -1,0 +1,12 @@
+bin/
+features/
+test/
+.gitignore
+.rubocop.yml
+.ruby-*
+action.yml
+CHANGELOG.md
+cucumber.yml
+Dockerfile
+Rakefile
+README.md
