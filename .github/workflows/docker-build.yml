@@ -1,4 +1,4 @@
-name: Rubocop and Tests
+name: Build Docker Image
 on:
   push:
     branches:
