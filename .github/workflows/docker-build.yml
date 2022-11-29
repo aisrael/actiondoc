@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "**"
+      - "!main" # only run on branches and tags
     tags:
       - "**"
     paths:
