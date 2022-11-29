@@ -23,7 +23,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
     - shell: bash
       run: |
         echo working-directory: ${{ inputs.working-directory || github.workspace }}
@@ -38,12 +37,13 @@ runs:
         TEMPLATE_FILENAME: ${{ inputs.template-filename }}
         OUTPUT_FILENAME: ${{ inputs.output-filename }}
       run: |
+        gem install actiondoc
         set -- ''
         if [[ -n "${TEMPLATE_FILENAME}" ]]; then
           set -- "$@" --template "${TEMPLATE_FILENAME}"
         fi
         if [[ -z "${OUTPUT_FILENAME}" ]]; then
-          ruby -Ilib exe/actiondoc "$@"
+          actiondoc "$@"
         else
-          ruby -Ilib exe/actiondoc "$@" > "${OUTPUT_FILENAME}"
+          actiondoc "$@" > "${OUTPUT_FILENAME}"
         fi
