@@ -2,9 +2,9 @@ name: Build Docker Image
 on:
   push:
     branches:
-      - **
+      - "**"
     tags:
-      - **
+      - "**"
     paths:
       - "!.github/workflows/**"
       - .github/workflows/docker-build.yml
