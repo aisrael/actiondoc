@@ -22,6 +22,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           add-paths: README.md
+          base: main
           branch: update-readme
           delete-branch: true
           title: Update README.md
