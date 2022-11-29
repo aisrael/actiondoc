@@ -1,4 +1,4 @@
-name: Rubocop and Tests
+name: Generate README
 on:
   push:
     paths:

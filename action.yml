@@ -42,7 +42,7 @@ runs:
           set -- "$@" --template "${TEMPLATE_FILENAME}"
         fi
         if [[ -z "${OUTPUT_FILENAME}" ]]; then
-          ruby -Ilib bin/actiondoc "$@"
+          ruby -Ilib exe/actiondoc "$@"
         else
-          ruby -Ilib bin/actiondoc "$@" > "${OUTPUT_FILENAME}"
+          ruby -Ilib exe/actiondoc "$@" > "${OUTPUT_FILENAME}"
         fi
