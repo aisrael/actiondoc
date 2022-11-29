@@ -10,7 +10,7 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Build Docker image'
-task docker_build: [:build] do |t|
+task docker_build: [:build] do
   `docker build -t actiondoc-#{ActionDoc::VERSION} .`
 end
 
