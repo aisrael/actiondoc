@@ -14,6 +14,10 @@ Generates documentation from your GitHub Action's `action.yml`
 | path-to-action-yml | The path to the `action.yml` file to generate documentation for.                        | No       |         |
 | working-directory  | The directory to perform the action in, if not $GITHUB_WORKSPACE                        | No       |         |
 
+
+actiondoc is both a Ruby Gem _and_ a GitHub Action that uses that gem to generate a suitable `README.md` from
+an optional ERB template, intended to help keep your own action's documentation up-to-date with the actual inputs.
+
 See [Basic Usage](features/basic_usage.feature) for some basic usage of the gem.
 
 ### Example
