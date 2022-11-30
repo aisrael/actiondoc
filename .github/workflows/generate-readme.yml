@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: if [ -f README.md ]; then rm README.md; fi
-      - name: Test with defaults
+      - name: Generate README
         uses: ./.
         with:
           template-filename: templates/README.md.erb
