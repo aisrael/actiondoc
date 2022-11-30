@@ -47,3 +47,7 @@ runs:
         else
           actiondoc "$@" > "${OUTPUT_FILENAME}"
         fi
+
+branding:
+  icon: book-open
+  color: purple
