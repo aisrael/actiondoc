@@ -28,7 +28,7 @@ name: actiondoc
   inputs:
     path-to-action-yml:
       description: >-
-        The path to the `action.yml` file to generate documentation for.
+        The path to the `action.yml` file
         required: false
 ```
 
@@ -42,7 +42,7 @@ Generates documentation from your GitHub Action's `action.yml`
 
 ## Inputs
 
-| Name               | Description                                                      | Required | Default |
-|--------------------|------------------------------------------------------------------|----------|---------|
-| path-to-action-yml | The path to the `action.yml` file to generate documentation for. | No       |         |
+| Name               | Description                       | Required | Default |
+|--------------------|-----------------------------------|----------|---------|
+| path-to-action-yml | The path to the `action.yml` file | No       |         |
 ```
