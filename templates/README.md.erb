@@ -45,6 +45,42 @@ Generates documentation from your GitHub Action's `action.yml`
 
 ## Use it in a workflow to update your action's README
 
+### Commit & push directly to update the README.md
+
+The following sample workflow uses this repository as a GitHub Action directly, and commits the updated
+README.md directly.
+
+
+```yaml
+name: Generate README
+on:
+  push:
+    paths:
+      - action.yml
+      - README.md.erb
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: if [ -f README.md ]; then rm README.md; fi
+      - name: Generate README
+        uses: aisrael/actiondoc@v1
+        with:
+          template-filename: README.md.erb
+          output-filename: README.md
+      - run: |
+          cat README.md
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+
+### Create a PR to update the README.md
+
 The following sample workflow uses this repository as a GitHub Action directly, and creates a PR (using
 [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)) to
 update `README.md` on any changes to either `action.yml` or `README.md.erb`.
