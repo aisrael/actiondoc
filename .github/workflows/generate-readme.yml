@@ -20,11 +20,7 @@ jobs:
           output-filename: README.md
       - run: |
           cat README.md
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+      - name: Commit & Push changes
+        uses: actions-js/push@master
         with:
-          add-paths: README.md
-          base: main
-          branch: update-readme
-          delete-branch: true
-          title: Update README.md
+          github_token: ${{ secrets.GITHUB_TOKEN }}
