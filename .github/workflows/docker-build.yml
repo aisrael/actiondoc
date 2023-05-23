@@ -69,4 +69,4 @@ jobs:
       - name: Assertions
         run: |
           cat README.md
-          [ -f README.md ] && diff README.md .github/workflows/README.md.with-template
+          [ -f README.md ] && diff README.md test/fixtures/expected-README.md.with-template
