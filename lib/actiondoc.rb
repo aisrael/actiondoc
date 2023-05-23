@@ -13,11 +13,7 @@ module ActionDoc
     def run
       options = parse_options
 
-      if options[:version]
-        display_version
-      else
-        ActionDoc::Generator.new(ARGV, options).run
-      end
+      ActionDoc::Generator.new(ARGV, options).run
     end
 
     # Builds the OptionParser and parses the options
@@ -39,23 +35,30 @@ module ActionDoc
     # Builds and returns the OptionParser
     def build_optparser(options)
       OptionParser.new do |opts|
-        opts.banner = 'Usage: actiondoc [options]'
+        opts.banner = <<~BANNER
+          Usage:
+
+              actiondoc [options] [ACTION_YAML_FILE]
+
+          Where:
+              [ACTION_YAML_FILE]               is the path to the action.yaml file. Defaults to "action.yaml"#{' '}
+                                               in the current directory.
+
+          Options:
+        BANNER
 
         opts.on('--template=TEMPLATE_FILENAME', '-t=TEMPLATE_FILENAME', 'The template to use') do |template_filename|
           options[:template] = template_filename
         end
         opts.on('--version', 'Show the version') do
-          options[:version] = true
+          puts "actiondoc v#{ActionDoc::VERSION}"
+          exit
         end
         opts.on('--help', 'Display this help text') do
           puts opts
+          exit
         end
       end
-    end
-
-    # Print out the version (in the VERSION file)
-    def display_version
-      puts "actiondoc v#{ActionDoc::VERSION}"
     end
   end
 end

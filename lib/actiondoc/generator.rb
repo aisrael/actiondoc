@@ -21,13 +21,22 @@ module ActionDoc
     end
 
     def run
+      check_action_yml
       action = read_action_yml
       template_filename = options[:template] || File.join(TEMPLATES_DIR, 'default.erb')
       render_template(template_filename, action)
     end
 
+    def check_action_yml
+      @path_to_action_yml = @args.first || 'action.yml'
+      return if File.readable?(@path_to_action_yml)
+
+      puts "#{@path_to_action_yml} not found! Aborting..."
+      exit 1
+    end
+
     def read_action_yml
-      yaml = YAML.safe_load(File.read('action.yml')).deep_symbolize_keys
+      yaml = YAML.safe_load(File.read(@path_to_action_yml)).deep_symbolize_keys
       inputs = yaml.fetch(:inputs, {}).map do |k, v|
         Input.new(k, v[:description], v[:required] ? 'Required' : 'No', v[:default])
       end

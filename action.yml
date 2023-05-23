@@ -36,11 +36,15 @@ runs:
       env:
         TEMPLATE_FILENAME: ${{ inputs.template-filename }}
         OUTPUT_FILENAME: ${{ inputs.output-filename }}
+        PATH_TO_ACTION_YML: ${{ inputs.path-to-action-yml }}
       run: |
         gem install actiondoc
         set -- ''
         if [[ -n "${TEMPLATE_FILENAME}" ]]; then
           set -- "$@" --template "${TEMPLATE_FILENAME}"
+        fi
+        if [[ -n "${PATH_TO_ACTION_YML}" ]]; then
+          set -- "$@" "${PATH_TO_ACTION_YML}"
         fi
         if [[ -z "${OUTPUT_FILENAME}" ]]; then
           actiondoc "$@"
