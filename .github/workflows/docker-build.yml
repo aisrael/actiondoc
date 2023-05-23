@@ -65,7 +65,7 @@ jobs:
         run: if [ -f README.md ]; then rm README.md; fi
       - name: Test with defaults
         run: |
-          actiondoc --template templates/README.md.erb > README.md
+          actiondoc --template test/fixtures/test-README.md.erb > README.md
       - name: Assertions
         run: |
           cat README.md
