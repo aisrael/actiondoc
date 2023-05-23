@@ -7,12 +7,12 @@ Generates documentation from your GitHub Action's `action.yml`
 
 ## Inputs
 
-| Name               | Description                                                                             | Required | Default |
-|--------------------|-----------------------------------------------------------------------------------------|----------|---------|
-| template-filename  | The path to the ERB template to use to generate the documentation.                      | No       |         |
-| output-filename    | The filename to save the output to. If not specified, simply prints to standard output. | No       |         |
-| path-to-action-yml | The path to the `action.yml` file to generate documentation for.                        | No       |         |
-| working-directory  | The directory to perform the action in, if not $GITHUB_WORKSPACE                        | No       |         |
+| Name               | Description                                                                                              | Required | Default |
+|--------------------|----------------------------------------------------------------------------------------------------------|----------|---------|
+| template-filename  | The path to the ERB template to use to generate the documentation.                                       | No       |         |
+| output-filename    | The filename to save the output to. If not specified, simply prints to standard output.                  | No       |         |
+| path-to-action-yml | The path to the `action.yml` file to generate documentation for. If not specified, assumes `action.yml`. | No       |         |
+| working-directory  | The directory to perform the action in, if not $GITHUB_WORKSPACE                                         | No       |         |
 
 
 actiondoc is both a Ruby Gem _and_ a GitHub Action that uses that gem to generate a suitable `README.md` from
