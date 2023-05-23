@@ -13,7 +13,7 @@ inputs:
     required: false
   path-to-action-yml:
     description: >-
-      The path to the `action.yml` file to generate documentation for.
+      The path to the `action.yml` file to generate documentation for. If not specified, assumes `action.yml`.
     required: false
   working-directory:
     description: >-
