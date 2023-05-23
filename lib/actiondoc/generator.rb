@@ -51,6 +51,8 @@ module ActionDoc
     end
 
     def construct_inputs_table(action)
+      return unless action.inputs && !action.inputs.empty?
+
       TableLayouts::Nice.new(Input.members_as_headers, action.inputs).layout
     end
   end
@@ -64,10 +66,17 @@ module ActionDoc
     <% end -%>
   ERB
 
+  NO_INPUTS = <<~NO_INPUTS
+
+    ## Inputs
+
+    This action has no inputs.
+  NO_INPUTS
+
   # For ERB binding
   TemplateModel = Struct.new(:action, :inputs_table) do
     def inputs_section
-      return if inputs_table.nil? || inputs_table.empty?
+      return NO_INPUTS if inputs_table.nil? || inputs_table.empty?
 
       ERB.new(INPUTS_SECTION_ERB, trim_mode: '-').result(binding)
     end
