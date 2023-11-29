@@ -3,6 +3,7 @@ on:
   push:
     paths-ignore:
       - README.md
+      - action.yml
   pull_request:
     branches:
       - main

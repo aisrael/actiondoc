@@ -43,7 +43,7 @@ runs:
 
         rake build
         gem install pkg/actiondoc-0.3.0.gem
-        set -- ''
+        set --
         if [[ -n "${TEMPLATE_FILENAME}" ]]; then
           set -- "$@" --template "${TEMPLATE_FILENAME}"
         fi
