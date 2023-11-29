@@ -37,7 +37,7 @@ runs:
         OUTPUT_FILENAME: ${{ inputs.output-filename }}
         PATH_TO_ACTION_YML: ${{ inputs.path-to-action-yml }}
       run: |
-        gem install actiondoc
+        gem install actiondoc -v 0.3.0
         set -- ''
         if [[ -n "${TEMPLATE_FILENAME}" ]]; then
           set -- "$@" --template "${TEMPLATE_FILENAME}"
