@@ -56,7 +56,7 @@ module ActionDoc
           warn "Template file #{options_template} not found! Aborting..."
           exit 1
         end
-        ERB.new(File.read(template_filename), trim_mode: '-')
+        ERB.new(File.read(options_template), trim_mode: '-')
       elsif action.inputs && !action.inputs.empty?
         ERB.new(DEFAULT_TEMPLATE, trim_mode: '-')
       else
