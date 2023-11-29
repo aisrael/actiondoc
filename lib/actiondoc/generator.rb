@@ -58,7 +58,6 @@ module ActionDoc
   end
 
   INPUTS_SECTION_ERB = <<~ERB
-
     ## Inputs
 
     <% inputs_table.each do |row| -%>

@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Ruby Gem to generate documentation for GitHub Actions'
   spec.homepage      = 'https://github.com/aisrael/actiondoc'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('~> 2.7.1')
+  spec.required_ruby_version = Gem::Requirement.new('~> 3.2.2')
 
   # spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
 
