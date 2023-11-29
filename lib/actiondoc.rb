@@ -41,7 +41,7 @@ module ActionDoc
               actiondoc [options] [ACTION_YAML_FILE]
 
           Where:
-              [ACTION_YAML_FILE]               is the path to the action.yaml file. Defaults to "action.yaml"#{' '}
+              [ACTION_YAML_FILE]               is the path to the action.yaml file. Defaults to "action.yaml"
                                                in the current directory.
 
           Options:
