@@ -11,6 +11,7 @@ on:
       - .github/workflows/docker-build.yml
       - "lib/**"
       - "exe/**"
+      - "test/fixtures/**"
       - actiondoc.gemspec
       - Dockerfile
       - Gemfile
@@ -69,4 +70,4 @@ jobs:
       - name: Assertions
         run: |
           cat README.md
-          [ -f README.md ] && diff README.md test/fixtures/expected-README.md.with-template
+          [ -f README.md ] && diff --strip-trailing-cr README.md test/fixtures/expected-README.md.with-template

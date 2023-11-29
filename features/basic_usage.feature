@@ -67,7 +67,7 @@ Feature: Basic Usage
     When I run `actiondoc --version`
     Then the output should contain exactly:
       """
-      actiondoc v0.1.0
+      actiondoc v0.4.0
       """
 
   Scenario: Help
@@ -79,7 +79,7 @@ Feature: Basic Usage
           actiondoc [options] [ACTION_YAML_FILE]
 
       Where:
-          [ACTION_YAML_FILE]               is the path to the action.yaml file. Defaults to "action.yaml" 
+          [ACTION_YAML_FILE]               is the path to the action.yaml file. Defaults to "action.yaml"
                                            in the current directory.
 
       Options:

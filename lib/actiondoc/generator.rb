@@ -6,7 +6,25 @@ require 'ostruct'
 require 'table_layouts'
 require 'yaml'
 
-TEMPLATES_DIR = File.expand_path('templates', __dir__)
+DEFAULT_TEMPLATE = <<~ERB
+  <%= action.name %>
+  ====
+
+  <%= action.description %>
+
+  <%= inputs_section -%>
+ERB
+
+TEMPLATE_WITHOUT_INPUTS = <<~ERB
+  <%= action.name %>
+  ====
+
+  <%= action.description %>
+
+  ## Inputs
+
+  This action has no inputs.
+ERB
 
 module ActionDoc
   # The documentation generator class
@@ -23,29 +41,43 @@ module ActionDoc
     def run
       check_action_yml
       action = read_action_yml
-      template_filename = options[:template] || File.join(TEMPLATES_DIR, 'default.erb')
-      render_template(template_filename, action)
+      template = read_template(action)
+      render_template(template, action)
+    end
+
+    def read_template(action)
+      options_template = options[:template]
+      if options_template
+        unless File.readable?(options_template)
+          warn "Template file #{options_template} not found! Aborting..."
+          exit 1
+        end
+        ERB.new(File.read(options_template), trim_mode: '-')
+      elsif action.inputs && !action.inputs.empty?
+        ERB.new(DEFAULT_TEMPLATE, trim_mode: '-')
+      else
+        ERB.new(TEMPLATE_WITHOUT_INPUTS, trim_mode: '-')
+      end
     end
 
     def check_action_yml
       @path_to_action_yml = @args.first || 'action.yml'
       return if File.readable?(@path_to_action_yml)
 
-      puts "#{@path_to_action_yml} not found! Aborting..."
+      warn "#{@path_to_action_yml} not found! Aborting..."
       exit 1
     end
 
     def read_action_yml
       yaml = YAML.safe_load(File.read(@path_to_action_yml)).deep_symbolize_keys
       inputs = yaml.fetch(:inputs, {}).map do |k, v|
-        Input.new(k, v[:description], v[:required] ? 'Required' : 'No', v[:default])
+        Input.new(k, v[:description].chomp, v[:required] ? 'Required' : 'No', v[:default])
       end
-      Action.new(*(yaml.values_at(:name, :description) + [inputs]))
+      Action.new(yaml[:name], yaml[:description].chomp, inputs)
     end
 
-    def render_template(template_filename, action)
+    def render_template(template, action)
       inputs_table = construct_inputs_table(action)
-      template = ERB.new(File.read(template_filename), trim_mode: '-')
       model = TemplateModel.new(action, inputs_table)
       puts template.result(model.instance_eval { binding })
     end
@@ -57,8 +89,8 @@ module ActionDoc
     end
   end
 
+  # For ERB binding
   INPUTS_SECTION_ERB = <<~ERB
-
     ## Inputs
 
     <% inputs_table.each do |row| -%>
