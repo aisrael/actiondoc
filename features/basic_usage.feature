@@ -39,6 +39,7 @@ Feature: Basic Usage
       ====
 
       Generates documentation from your GitHub Action's `action.yml`
+
       ## Inputs
 
       | Name               | Description                                                      | Required | Default |
