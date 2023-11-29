@@ -12,11 +12,7 @@ DEFAULT_TEMPLATE = <<~ERB
 
   <%= action.description %>
 
-  ## Inputs
-
-  <% inputs_table.each do |row| -%>
-  <%= "|" + row.join("|") + "|" %>
-  <% end -%>
+  <%= inputs_section -%>
 ERB
 
 TEMPLATE_WITHOUT_INPUTS = <<~ERB
@@ -75,7 +71,7 @@ module ActionDoc
     def read_action_yml
       yaml = YAML.safe_load(File.read(@path_to_action_yml)).deep_symbolize_keys
       inputs = yaml.fetch(:inputs, {}).map do |k, v|
-        Input.new(k, v[:description], v[:required] ? 'Required' : 'No', v[:default])
+        Input.new(k, v[:description].chomp, v[:required] ? 'Required' : 'No', v[:default])
       end
       Action.new(yaml[:name], yaml[:description].chomp, inputs)
     end
@@ -94,7 +90,29 @@ module ActionDoc
   end
 
   # For ERB binding
-  TemplateModel = Struct.new(:action, :inputs_table)
+  INPUTS_SECTION_ERB = <<~ERB
+    ## Inputs
+
+    <% inputs_table.each do |row| -%>
+    <%= "|" + row.join("|") + "|" %>
+    <% end -%>
+  ERB
+
+  NO_INPUTS = <<~NO_INPUTS
+
+    ## Inputs
+
+    This action has no inputs.
+  NO_INPUTS
+
+  # For ERB binding
+  TemplateModel = Struct.new(:action, :inputs_table) do
+    def inputs_section
+      return NO_INPUTS if inputs_table.nil? || inputs_table.empty?
+
+      ERB.new(INPUTS_SECTION_ERB, trim_mode: '-').result(binding)
+    end
+  end
 end
 
 # Monkey patch Hash
