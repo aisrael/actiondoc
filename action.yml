@@ -47,9 +47,9 @@ runs:
           set -- "$@" "${PATH_TO_ACTION_YML}"
         fi
         if [[ -z "${OUTPUT_FILENAME}" ]]; then
-          actiondoc "$@"
+          ( set -x; actiondoc "$@" )
         else
-          actiondoc "$@" > "${OUTPUT_FILENAME}"
+          ( set -x; actiondoc "$@" > "${OUTPUT_FILENAME}" )
         fi
 
 branding:
