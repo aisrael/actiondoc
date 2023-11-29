@@ -11,6 +11,7 @@ on:
       - .github/workflows/docker-build.yml
       - "lib/**"
       - "exe/**"
+      - "test/fixtures/*"
       - actiondoc.gemspec
       - Dockerfile
       - Gemfile
