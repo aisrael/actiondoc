@@ -67,7 +67,7 @@ Feature: Basic Usage
     When I run `actiondoc --version`
     Then the output should contain exactly:
       """
-      actiondoc v0.3.0
+      actiondoc v0.4.0
       """
 
   Scenario: Help

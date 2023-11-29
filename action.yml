@@ -42,7 +42,7 @@ runs:
         echo PATH_TO_ACTION_YML: "${PATH_TO_ACTION_YML}"
 
         rake build
-        gem install pkg/actiondoc-0.3.0.gem
+        gem install pkg/actiondoc-0.4.0.gem
         set --
         if [[ -n "${TEMPLATE_FILENAME}" ]]; then
           set -- "$@" --template "${TEMPLATE_FILENAME}"
