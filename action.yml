@@ -37,6 +37,10 @@ runs:
         OUTPUT_FILENAME: ${{ inputs.output-filename }}
         PATH_TO_ACTION_YML: ${{ inputs.path-to-action-yml }}
       run: |
+        echo TEMPLATE_FILENAME: "${TEMPLATE_FILENAME}"
+        echo OUTPUT_FILENAME: "${OUTPUT_FILENAME}"
+        echo PATH_TO_ACTION_YML: "${PATH_TO_ACTION_YML}"
+
         rake build
         gem install pkg/actiondoc-0.3.0.gem
         set -- ''
