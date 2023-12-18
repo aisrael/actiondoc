@@ -73,7 +73,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: if [ -f README.md ]; then rm README.md; fi
       - name: Generate README
-        uses: aisrael/actiondoc@v1
+        uses: aisrael/actiondoc@v2
         with:
           template-filename: README.md.erb
           output-filename: README.md
@@ -108,7 +108,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: if [ -f README.md ]; then rm README.md; fi
       - name: Generate README
-        uses: aisrael/actiondoc@v1
+        uses: aisrael/actiondoc@v2
         with:
           template-filename: README.md.erb
           output-filename: README.md
