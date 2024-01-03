@@ -23,27 +23,28 @@ inputs:
 runs:
   using: composite
   steps:
-    - shell: bash
-      run: |
-        echo working-directory: ${{ inputs.working-directory || github.workspace }}
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.2.2
         bundler-cache: true
-        working-directory: ${{ inputs.working-directory || github.workspace }}
-    - shell: bash
+    - name: Build and install actiondoc gem
+      shell: bash
+      run: |
+        rake build
+        gem install pkg/actiondoc-0.4.0.gem
+    - name: Run actiondoc
+      shell: bash
       working-directory: ${{ inputs.working-directory || github.workspace }}
       env:
         TEMPLATE_FILENAME: ${{ inputs.template-filename }}
         OUTPUT_FILENAME: ${{ inputs.output-filename }}
         PATH_TO_ACTION_YML: ${{ inputs.path-to-action-yml }}
       run: |
+        echo working-directory: ${{ inputs.working-directory || github.workspace }}
         echo TEMPLATE_FILENAME: "${TEMPLATE_FILENAME}"
         echo OUTPUT_FILENAME: "${OUTPUT_FILENAME}"
         echo PATH_TO_ACTION_YML: "${PATH_TO_ACTION_YML}"
 
-        rake build
-        gem install pkg/actiondoc-0.4.0.gem
         set --
         if [[ -n "${TEMPLATE_FILENAME}" ]]; then
           set -- "$@" --template "${TEMPLATE_FILENAME}"
