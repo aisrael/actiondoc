@@ -24,12 +24,18 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v4
+      with:
+        repository: aisrael/actiondoc
+        ref: v2
+        path: actiondoc
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.2.2
         bundler-cache: true
+        working-directory: actiondoc
     - name: Build and install actiondoc gem
       shell: bash
+      working-directory: actiondoc
       run: |
         rake build
         gem install pkg/actiondoc-0.4.0.gem
