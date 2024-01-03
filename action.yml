@@ -33,12 +33,11 @@ runs:
         ruby-version: 3.2.2
         bundler-cache: true
         working-directory: actiondoc
-    - name: Build and install actiondoc gem
+    - name: Install actiondoc gem
       shell: bash
       working-directory: actiondoc
       run: |
-        rake build
-        gem install pkg/actiondoc-0.4.0.gem
+        gem actiondoc
     - name: Run actiondoc
       shell: bash
       working-directory: ${{ inputs.working-directory || github.workspace }}
